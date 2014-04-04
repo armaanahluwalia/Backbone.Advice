@@ -1,4 +1,4 @@
-define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
+require(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 
 
 	chai.should();
@@ -39,7 +39,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 
 		describe('#addMixin', function() {
 			var A = function() {};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			it('should have properties added from the mixin', function() {
 				A.should.have.property('mixin').and.be.a('function');
 				A.should.have.property('addToObj').and.be.a('function');
@@ -52,7 +52,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 
 		describe('create new object', function() {
 			var A = function() {};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			a = new A();
 			it('should have hasMixin function', function() {
 				A.should.have.property('hasMixin').and.be.a('function');
@@ -67,7 +67,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 					return this.number;
 				}
 			};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			A.around('getNumber', function(orig) {
 				return orig() + 1;
 			});
@@ -85,7 +85,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 					return this.number;
 				}
 			};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			A.before('getNumber', objMixin.before.getNumber);
 			var a = new A();
 			var number = a.getNumber();
@@ -106,7 +106,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 				  return this.val;
 				}
 			};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			A.after('getValue', after.returnBar);
 			var a = new A();
 		  it('should return the value returned by the last function applied as an after', function() {
@@ -121,7 +121,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 					return this.number;
 				}
 			};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			A.mixin(objMixin);
 
 			var a = new A();
@@ -141,7 +141,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 					return this.number;
 				}
 			};
-			Backbone.Advice.addMixin(B);
+			Backbone.Advice.addMixins(B);
 			B.mixin(fnMixin, {
 				clobber: true
 			});
@@ -162,7 +162,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 					return this.number;
 				}
 			};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			var mixin = function() {
 				this.before('getNumber', function() {
 					this.number += 1;
@@ -179,7 +179,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 			var mixin = function(){};
 			var mixin2 = function(){};
 			var A = function(){};
-			Backbone.Advice.addMixin(A);
+			Backbone.Advice.addMixins(A);
 			A.mixin(mixin);
 			var a = new A();
 			it('should have mixin applied to constructor', function() {
@@ -356,5 +356,7 @@ define(['chai', 'Backbone.Advice', 'Mixin'], function(chai) {
 			});
 		});
 	});
+
+    mocha.run();
 
 });

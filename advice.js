@@ -185,7 +185,10 @@ define([
       // chaining
       return this;
     },
-
+    addMixin: function(mixin, options) {
+          mixin.call(this, options);
+          return this;
+    },
     hasMixin: function(mixin) {
       var mixins = this.mixedIn || this.constructor.mixedIn;
       return _.contains(mixins, mixin);
@@ -194,7 +197,7 @@ define([
     /**
      * adds mixin functions to an object
      */
-    addMixin: function(obj) {
+    addMixins: function(obj) {
       // adds before, after and around
       _.each(['before', 'after', 'around'], function(m) {
         obj[m] = function(method, fn) {
@@ -236,9 +239,9 @@ define([
     }
   };
 
-  Backbone.Advice.addMixin(Backbone.View);
-  Backbone.Advice.addMixin(Backbone.Model);
-  Backbone.Advice.addMixin(Backbone.Collection);
+  Backbone.Advice.addMixins(Backbone.View);
+  Backbone.Advice.addMixins(Backbone.Model);
+  Backbone.Advice.addMixins(Backbone.Collection);
 
   return Backbone.Advice;
 
